@@ -6,7 +6,6 @@
 #import "MuTextFieldController.h"
 #import "MuChoiceFieldController.h"
 #import "MuPrintPageRenderer.h"
-#import "../PdfViewerModule.h"
 
 #define GAP 20
 #define INDICATOR_Y -44-24
