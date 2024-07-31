@@ -9,7 +9,7 @@
 #import "MuDocRef.h"
 
 @interface MuLibraryController : NSObject <UIActionSheetDelegate>
-- (void) initSetup:(BOOL)isEnableAnnot continuePage:(NSNumber*)continuePage;
+- (void) initSetup:(BOOL)isEnableAnnot isEnableBookMark:(BOOL)isEnableBookMark continuePage:(NSNumber*)continuePage bookId:(NSString*)bookId;
 - (void) openDocument: (NSString*)filename;
 - (void) askForPassword: (NSString*)prompt;
 - (void) onPasswordOkay;

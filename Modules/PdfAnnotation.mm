@@ -43,7 +43,7 @@ RCT_EXPORT_MODULE()
   }
 }
 
-RCT_EXPORT_METHOD(openPdf:(NSString *)url options:(NSDictionary *)options resolver:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(openPdf:(NSString *)url bookId:(NSString *)bookId options:(NSDictionary *)options resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
   
@@ -61,6 +61,7 @@ RCT_EXPORT_METHOD(openPdf:(NSString *)url options:(NSDictionary *)options resolv
                                              object:nil];
   
   BOOL isEnableAnnot = YES;
+  BOOL isEnableBookMark = YES;
   NSNumber *continuePage = nil;
   
   NSNumber *isEnableAnnotValue = [options objectForKey:@"isEnableAnnot"];
@@ -68,6 +69,13 @@ RCT_EXPORT_METHOD(openPdf:(NSString *)url options:(NSDictionary *)options resolv
               isEnableAnnot = [isEnableAnnotValue boolValue];
           } else {
               isEnableAnnot = YES;
+          }
+  
+  NSNumber *isEnableBookMarkValue = [options objectForKey:@"isEnableBookMark"];
+          if (isEnableBookMarkValue != nil && [isEnableBookMarkValue isKindOfClass:[NSNumber class]]) {
+            isEnableBookMark = [isEnableBookMarkValue boolValue];
+          } else {
+            isEnableBookMark = YES;
           }
   
   NSNumber *continuePageValue = [options objectForKey:@"continuePage"];
@@ -90,7 +98,7 @@ RCT_EXPORT_METHOD(openPdf:(NSString *)url options:(NSDictionary *)options resolv
           NSString *result = [NSString stringWithFormat:@"%@/%@", secondLastPathComponent, lastPathComponent];
           NSString *filename = result;
           if (filename.length > 0) {
-            [library initSetup:isEnableAnnot continuePage:continuePage];
+            [library initSetup:isEnableAnnot isEnableBookMark:isEnableBookMark continuePage:continuePage bookId:bookId];
               [library openDocument:filename];
               resolve(@"success");
           } else {
